@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { HomePics, RelatedPic } from '../DATA/Data'
 
@@ -7,6 +7,15 @@ export default function Content(){
     const[Data,setdata]=useState(loc.state)
     console.log(Data);
     const [product1, setProduct] = useState(HomePics);
+    const[product2,setProduct2]= useState('');
+    console.log(RelatedPic);
+    useEffect(()=>{
+        function show(){
+            setProduct2(RelatedPic.filter(d=>d.pid==Data.id))
+
+        }
+        show()
+    },[])
     
     
     return(
@@ -42,6 +51,18 @@ export default function Content(){
            <h1>
             More Like This
            </h1>
+
+           <div className='C-2similar'>
+
+                            {
+                                product2 && product2.map(k=>(
+                                        <div>
+                                            <img src={k.image}/>
+                                            
+                                        </div>
+                                ))
+                            }
+           </div>
            <div className='C-likethis'>
 
            </div>
